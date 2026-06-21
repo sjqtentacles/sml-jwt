@@ -1,0 +1,16 @@
+(* Source files for sml-jwt, in dependency order.
+
+   The vendored sml-crypto sources are pulled in first; that include *itself*
+   pulls in the vendored sml-codec sources (SHA-256 for HMAC + Base64 for the
+   base64url adapter), so sml-codec is included exactly once even though we use
+   it directly. sml-json (and its own vendored sml-parsec) come next, then our
+   own files. Listing sml-codec separately here would double-include it and
+   error, so we deliberately rely on the transitive include from sml-crypto. *)
+
+$(SML_LIB)/basis/basis.mlb
+
+../sml-crypto/sources.mlb
+../sml-json/sources.mlb
+
+jwt.sig
+jwt.sml

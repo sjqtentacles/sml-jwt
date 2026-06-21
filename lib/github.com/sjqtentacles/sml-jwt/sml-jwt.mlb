@@ -1,0 +1,7 @@
+(* sml-jwt: public library basis. Re-exports the vendored dependencies
+   (sml-crypto + sml-codec, sml-json + sml-parsec) plus the JWT sources, so a
+   consumer gets `structure Jwt`. *)
+
+$(SML_LIB)/basis/basis.mlb
+
+sources.mlb
