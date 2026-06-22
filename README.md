@@ -75,12 +75,33 @@ val claims =
     | Jwt.Err _ => raise Fail "invalid token"
 ```
 
+## Example
+
+`make example` builds and runs [`examples/demo.sml`](examples/demo.sml), which
+reproduces the RFC 7515 A.1 HS256 vector and runs a sign/verify round-trip with
+an injected clock:
+
+```
+$ make example
+RFC 7515 A.1 HS256 worked example:
+  signature segment = dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+  verify (now=1300819379) = Ok
+
+Sign / verify round-trip (HS256):
+  token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MjAwMCwibmJmIjoxMDAwfQ.daQ40VSJuLVhiDYOdqjGJW-Fjm0JoOfXng7cqHQ_mMY
+  verify (now=1500, in window) = Ok
+  verify (now=2000, expired)   = Err Expired
+  verify (now=500, not yet)    = Err NotYetValid
+  verify (wrong secret)        = Err BadSignature
+```
+
 ## Build & test
 
 ```sh
 make test        # MLton
 make test-poly   # Poly/ML
 make all-tests   # both
+make example     # build + run the demo
 make clean
 ```
 
